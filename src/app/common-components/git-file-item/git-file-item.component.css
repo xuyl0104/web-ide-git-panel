@@ -1,0 +1,26 @@
+.git-file-item > * {
+    font-size: 1em;
+}
+
+
+.git-file-item .file-info {
+    white-space: nowrap;  /*强制span不换行*/
+    display: inline-block;  /*将span当做块级元素对待*/
+    width: calc(100% - 20px); /*限制宽度*/
+    overflow: hidden;  /*超出宽度部分隐藏*/
+    text-overflow: ellipsis;  /*超出部分以点号代替*/
+    /* line-height: 0.8em;  数字与之前的文字对齐 */
+}
+
+.git-file-item .file-status-added {
+    color: rgb(58, 241, 180);
+}
+.git-file-item .file-status-modified {
+    color: rgb(255, 210, 125);
+}
+.git-file-item .file-status-deleted {
+    color: rgb(231, 77, 85);
+}
+.git-file-item .file-status-untracked {
+    color: rgb(59, 142, 197);
+}

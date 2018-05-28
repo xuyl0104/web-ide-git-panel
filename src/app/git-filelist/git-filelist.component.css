@@ -1,0 +1,21 @@
+.git-filelist {
+    /* height: 100vh; */
+}
+
+.git-filelist .control-bar{
+    height: 1rem;
+    margin-top: 15px;
+}
+
+.git-filelist .control-bar .control-bar-left{
+    float: left;
+    font-weight: bold;
+}
+
+.git-filelist .control-bar .control-bar-right{
+    float: right;
+}
+
+.git-filelist .control-bar .control-bar-right > *{
+    margin-left: 10px;
+}

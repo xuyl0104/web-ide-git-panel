@@ -1,0 +1,37 @@
+<div class="git-filelist">
+  <!-- 暂存的更改 -->
+  <div *ngIf="stagedFiles.length > 0" class="control-bar cursor-pointer">
+    <div class="control-bar-left">
+      <label>暂存的更改</label>
+    </div>
+    <div class="control-bar-right">
+      <i class="demo-icon icon-ok"></i>
+      <label>{{stagedFiles.length}}</label>
+    </div>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <div *ngFor="let fileitem of stagedFiles" style="margin-top: 4px;">
+      <app-git-file-item [fileItem]="fileitem" (onRemoveFile)="onRemoveFile($event)"></app-git-file-item>      
+    </div>
+  </div>
+
+  <!-- 未暂存更改 -->
+  <div *ngIf="otherFiles.length > 0" class="control-bar cursor-pointer">
+    <div class="control-bar-left">
+      <label>更改</label>
+    </div>
+    <div class="control-bar-right">
+      <i class="demo-icon icon-undo"></i>
+      <i class="demo-icon icon-ok"></i>
+      <label>{{otherFiles.length}}</label>
+    </div>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <div *ngFor="let fileitem of otherFiles" style="margin-top: 4px;">
+      <app-git-file-item [fileItem]="fileitem" (onAddFile)="onAddFile($event)"></app-git-file-item>      
+    </div>
+  </div>
+  
+</div>
