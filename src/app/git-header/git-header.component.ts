@@ -15,9 +15,8 @@ export class GitHeaderComponent implements OnInit {
   }
 
   asyncToGit(): void {
-    console.log("Async to git server...");
+    console.log('Async to git server...');
     console.log(this.files);
-    
   }
 
 }

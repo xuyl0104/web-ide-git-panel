@@ -15,10 +15,14 @@ export class GitFileItemComponent implements OnInit {
   fileIconPath: string;
   fileStatusClassName: string;
 
-  isAdded: boolean = false;
-  isModified: boolean = false;
-  isDeleted: boolean = false;
-  isUntracked: boolean = false;
+  isAdded = false;
+  isModified = false;
+  isDeleted = false;
+  isUntracked = false;
+
+  @Output() onAddFile = new EventEmitter<boolean>();
+
+  @Output() onRemoveFile = new EventEmitter<boolean>();
 
   constructor() {
   }
@@ -30,10 +34,10 @@ export class GitFileItemComponent implements OnInit {
   }
 
   getFileIcon() {
-    let fileName = this.fileItem.fileName;
-    let fileExtension = fileName.split('.')[fileName.split('.').length - 1];
-    let fileIconName = "file_type_" + fileExtension + ".svg";
-    let fileIconPath = "./assets/icon/" + fileIconName;
+    const fileName = this.fileItem.fileName;
+    const fileExtension = fileName.split('.')[fileName.split('.').length - 1];
+    const fileIconName = 'file_type_' + fileExtension + '.svg';
+    const fileIconPath = './assets/icon/' + fileIconName;
 
     this.fileIconName = fileIconName;
     this.fileIconPath = fileIconPath;
@@ -41,7 +45,7 @@ export class GitFileItemComponent implements OnInit {
 
   getIconFromName(fileExtension) {
     switch (fileExtension) {
-      case "js":
+      case 'js':
 
         break;
 
@@ -51,27 +55,27 @@ export class GitFileItemComponent implements OnInit {
   }
 
   getFileStatusClass() {
-    let fileStatus = this.fileItem.fileType;
+    const fileStatus = this.fileItem.fileType;
     let fileStatusClassName;
     switch (fileStatus) {
-      case "M":
+      case 'M':
         this.isModified = true;
-        fileStatusClassName = "file-status-modified";
+        fileStatusClassName = 'file-status-modified';
         break;
-      case "U":
+      case 'U':
       this.isUntracked = true;
-        fileStatusClassName = "file-status-untracked";
+        fileStatusClassName = 'file-status-untracked';
         break;
-      case "D":
+      case 'D':
         this.isDeleted = true;
-        fileStatusClassName = "file-status-deleted";
+        fileStatusClassName = 'file-status-deleted';
         break;
-      case "A":
+      case 'A':
         this.isAdded = true;
-        fileStatusClassName = "file-status-added";
+        fileStatusClassName = 'file-status-added';
         break;
       default:
-        fileStatusClassName = "";
+        fileStatusClassName = '';
         break;
     }
     this.fileStatusClassName = fileStatusClassName;
@@ -88,15 +92,13 @@ export class GitFileItemComponent implements OnInit {
   getFileDetails(file) {
     // 根据file的fileName和filePath，调用API，获取文件的详细信息，得到git diff信息，使用插件进行差异展示
     console.log(file);
-    console.log("git diff: " + file.filePath + file.fileName);
+    console.log('git diff: ' + file.filePath + file.fileName);
   }
 
-  @Output() onAddFile = new EventEmitter<boolean>();
   clickAdd(file) {
     this.onAddFile.emit(file);
   }
 
-  @Output() onRemoveFile = new EventEmitter<boolean>();
   clickRemove(file) {
     this.onRemoveFile.emit(file);
   }

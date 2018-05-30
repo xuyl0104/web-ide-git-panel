@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { File } from '../file';
 
 @Component({
@@ -6,7 +6,7 @@ import { File } from '../file';
   templateUrl: './git-filelist.component.html',
   styleUrls: ['./git-filelist.component.css']
 })
-export class GitFilelistComponent implements OnInit {
+export class GitFilelistComponent implements OnInit, OnChanges {
 
   @Input() fileList: File[];
 
@@ -20,29 +20,29 @@ export class GitFilelistComponent implements OnInit {
 
   otherFiles: File[];
 
+  @Output() event = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {}
 
   ngOnChanges() {
-    // console.log("ngOnChanges");
-    console.log(this.fileList)
-    let allFiles = this.fileList || [];
+    console.log(this.fileList);
+    const allFiles = this.fileList || [];
 
-    let untrackedFiles = allFiles.filter((file, index) => {
+    const untrackedFiles = allFiles.filter((file, index) => {
       return file.fileTracked === false;
     });
 
-    let trackedFiles = allFiles.filter((file, index) => {
+    const trackedFiles = allFiles.filter((file, index) => {
       return file.fileTracked === true;
     });
 
-    let stagedFiles = allFiles.filter((file, index) => {
+    const stagedFiles = allFiles.filter((file, index) => {
       return file.fileStaged === true;
     });
-    
-    let unStagedFiles = allFiles.filter((file, index) => {
+
+    const unStagedFiles = allFiles.filter((file, index) => {
       return file.fileStaged === false;
     });
 
@@ -58,32 +58,34 @@ export class GitFilelistComponent implements OnInit {
     this.otherFiles = otherFiles; // 除了staged阶段的文件，在下方区域显示的文件
   }
 
-  @Output() event = new EventEmitter();
+  // 每次点击“+”、“-”、“刷新”、“提交”等按钮，执行该方法，从服务器取得最新的文件（状态）列表
   fetchFilesFromServer() {
-    // 每次点击“+”、“-”、“刷新”、“提交”等按钮，执行该方法，从服务器取得最新的文件（状态）列表
-    console.log("Fetching updated filelist from server...");
+    console.log('Fetching updated filelist from server...');
     // fetch (API)
-    this.updatedFileList = this.fileList.concat({fileType: "js", fileName: Math.ceil(Math.random()*10) * Math.ceil(Math.random()*10) + "fileheader.js", filePath: "/git-header/", fileStatus: "M", fileStaged: true, fileTracked: true});
+    this.updatedFileList = this.fileList.concat(
+      {fileType: 'js', fileName: Math.ceil(Math.random() * 10) * Math.ceil(Math.random() * 10) +
+        'fileheader.js', filePath: '/git-header/', fileStatus: 'M', fileStaged: true, fileTracked: true}
+      );
     // emit
     this.event.emit(this.updatedFileList);
   }
 
   // 点击“+”按钮，git add
-  gitAdd(file) {
+  gitAdd(file): void {
     // 执行git add(API)
-    console.log("git add " + file.filePath + file.fileName);
+    console.log('git add ' + file.filePath + file.fileName);
   }
-  
+
   // 点击“-”按钮，撤销暂存的文件
-  gitRemove(file) {
+  gitRemove(file): void {
     // 执行 reset(API)
-    console.log("git reset HEAD " + file.filePath + file.fileName);
+    console.log('git reset HEAD ' + file.filePath + file.fileName);
   }
 
   // 点击文件item上的+号按钮，进行git add，从服务器端传回更新后的文件（状态）列表
-  onAddFile(file) {
+  onAddFile(file): void {
     this.otherFiles.splice(this.otherFiles.indexOf(file), 1);
-    let addedFile = file;
+    const addedFile = file;
     addedFile.fileStaged = true;
     addedFile.fileTracked = true;
 
@@ -94,9 +96,9 @@ export class GitFilelistComponent implements OnInit {
   }
 
   // 点击文件item上的-号按钮，撤销上次git add操作，从服务器端传回更新后的文件（状态）列表
-  onRemoveFile(file) {
+  onRemoveFile(file): void {
     this.stagedFiles.splice(this.stagedFiles.indexOf(file), 1);
-    let removedFile = file;
+    const removedFile = file;
     removedFile.fileStaged = false;
     removedFile.fileTracked = false;
 
@@ -106,5 +108,20 @@ export class GitFilelistComponent implements OnInit {
     this.fetchFilesFromServer();
   }
 
-  
+  stageAllFiles(): void {
+    // git add -A -- .
+    console.log('Staging all files...' + 'git add -A -- .');
+    // 调用git status -> fetch data from server -> update file list panel
+  }
+
+  removeAllStagedFiles(): void {
+    // git reset -q HEAD -- .
+    console.log('Removing all staged files...' + 'git reset -q HEAD -- .');
+    // 调用git status -> fetch data from server -> update file list panel
+  }
+
+  rescindAllEdit() {
+    // git checkout -- [filename]
+    console.log('Rescinding all edit...');
+  }
 }

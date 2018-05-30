@@ -1,67 +1,64 @@
 <div class="gitpanel w-100 d-flex flex-column">
-  <div class="git-header">
-    <div class="header-label"><label>源代码管理器：GIT</label></div>
-    <div class="header-icon cursor-pointer">
-      <i class="demo-icon icon-cw" (click)="refresh()"></i>
-      <i class="demo-icon icon-ok" (click)="commit()"></i>
-      <!-- <i class="demo-icon icon-ellipsis"></i> -->
+  <div class="git-header d-flex flex-column">
+    <div>
+      <div class="header-label"><label>源代码管理器：GIT</label></div>
+      <div class="header-icon cursor-pointer">
+        <i class="demo-icon icon-cw" tooltip="刷新" placement="bottom" delay="1000" (click)="refresh()"></i>
+        <i class="demo-icon icon-ok" tooltip="提交" placement="bottom" delay="1000" (click)="commit()"></i>
 
-      <div class="btn-group" dropdown placement="bottom right" >
-        <i class="demo-icon icon-ellipsis" id="button-basic" dropdownToggle aria-controls="dropdown-basic"></i>
-        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-basic">
+        <div class="btn-group" dropdown placement="bottom right" >
+          <i class="demo-icon icon-ellipsis" id="button-basic" dropdownToggle aria-controls="dropdown-basic"></i>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="button-basic">
 
-          <li role="menuitem" (click)="asyncToGit()">
-            <a class="dropdown-item menu-item-highlight">同步</a>
-          </li>
-          <li role="menuitem" (click)="pull()">
-            <a class="dropdown-item menu-item-highlight">拉取</a>
-          </li>
-          <li role="menuitem" (click)="push()">
-            <a class="dropdown-item">推送</a>
-          </li>
+            <li role="menuitem" (click)="asyncToGit()">
+              <a class="dropdown-item menu-item-highlight">同步</a>
+            </li>
+            <li role="menuitem" (click)="pull()">
+              <a class="dropdown-item menu-item-highlight">拉取</a>
+            </li>
+            <li role="menuitem" (click)="push()">
+              <a class="dropdown-item">推送</a>
+            </li>
 
-          <li class="divider dropdown-divider"></li>
+            <li class="divider dropdown-divider"></li>
 
-          <li role="menuitem" (click)="commitAllFiles()">
-            <a class="dropdown-item">全部提交</a>
-          </li>
-          <li role="menuitem">
-            <a class="dropdown-item">全部提交(修改)</a>
-          </li>
-          <li role="menuitem">
-            <a class="dropdown-item">全部提交(已签名)</a>
-          </li>
-          <li role="menuitem" (click)="commitStagedFiles()">
-            <a class="dropdown-item">提交已暂存文件</a>
-          </li>
-          <li role="menuitem" (click)="resetLastCommittedFiles()">
-            <a class="dropdown-item">撤销上次提交</a>
-          </li>
+            <li role="menuitem" (click)="commitAllFiles()">
+              <a class="dropdown-item">全部提交</a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item">全部提交(修改)</a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item">全部提交(已签名)</a>
+            </li>
+            <li role="menuitem" (click)="commitStagedFiles()">
+              <a class="dropdown-item">提交已暂存文件</a>
+            </li>
+            <li role="menuitem" (click)="resetLastCommittedFiles()">
+              <a class="dropdown-item">撤销上次提交</a>
+            </li>
 
-          <li class="divider dropdown-divider"></li>
+            <li class="divider dropdown-divider"></li>
 
-          <li role="menuitem" (click)="removeAllStagedFiles()">
-            <a class="dropdown-item">取消暂存所有修改</a>
-          </li>
-          <!-- <li role="menuitem">
-            <a class="dropdown-item">放弃所有修改</a>
-          </li> -->
-          <li role="menuitem" (click)="stageAllFiles()">
-            <a class="dropdown-item">暂存所有修改</a>
-          </li>
-        </ul>
+            <li role="menuitem" (click)="removeAllStagedFiles()">
+              <a class="dropdown-item">取消暂存所有修改</a>
+            </li>
+            <!-- <li role="menuitem">
+              <a class="dropdown-item">放弃所有修改</a>
+            </li> -->
+            <li role="menuitem" (click)="stageAllFiles()">
+              <a class="dropdown-item">暂存所有修改</a>
+            </li>
+          </ul>
+        </div>
+
       </div>
-
     </div>
 
     <div class="git-input">
       <input type="text" class="comment-input" placeholder="消息（按Cmd+Enter提交）" [(ngModel)]="comment" (keyup.enter)="addComment()" />
     </div>
-  </div> 
-  <!-- <app-git-header [files]="files"></app-git-header> -->
-
-  
-  <!-- <app-git-input></app-git-input> -->
+  </div>
 
   <div class="w-100" style="flex: 1 1; overflow: auto;">
     <app-git-filelist [fileList]="files" (event)="getData($event)"></app-git-filelist>

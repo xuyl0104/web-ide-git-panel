@@ -1,6 +1,7 @@
-<div class="git-file-item hover-shadow cursor-pointer" *ngIf="fileItem">
-  
-  <div class="file-info" (click)="getFileDetails(fileItem)">
+<div class="git-file-item hover-shadow cursor-pointer d-flex justify-content-between" *ngIf="fileItem">
+
+  <div class="file-info" (click)="getFileDetails(fileItem)"
+    tooltip={{fileItem.filePath}}{{fileItem.fileName}} placement="bottom" delay="1000">
 
     <!-- 左侧文件图标 -->
     <div style="display: inline-block">
@@ -18,17 +19,15 @@
       {{fileItem.filePath}}
     </div>
 
-    <div class="d-inline-block float-right">
-      <i *ngIf="fileItem.fileStaged === true" class="icon-minus" (click)="removeFile(fileItem)"></i>
-      <i *ngIf="fileItem.fileStaged === false" class="icon-plus-1" (click)="addFile(fileItem)"></i>
-    </div>
-    
   </div>
 
   <!-- 右侧标识符，指示该文件状态 -->
-    <div class="d-inline-block font-weight-bold float-right">
-      {{fileItem.fileStatus}}
+    <div class="d-inline-block font-weight-bold float-right d-flex justify-content-between ml-1" style="width: 3.3rem;">
+      <i *ngIf="fileItem.fileStaged === true" class="icon-minus" tooltip="取消暂存" placement="bottom" delay="1000" (click)="removeFile(fileItem)"></i>
+      <!-- <i *ngIf="fileItem.fileStaged === false" class="icon-undo" tooltip="放弃更改" placement="bottom" delay="1000"></i> -->
+      <i *ngIf="fileItem.fileStaged === false" class="icon-plus-1" tooltip="暂存更改" placement="bottom" delay="1000" (click)="addFile(fileItem)"></i>
+      <label style="margin-bottom: 0">{{fileItem.fileStatus}}</label>
     </div>
-    
+
   <!-- </div> -->
 </div>

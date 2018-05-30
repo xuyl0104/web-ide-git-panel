@@ -1,0 +1,34 @@
+<div class="git-file-item hover-shadow cursor-pointer" *ngIf="fileItem">
+
+  <div class="file-info" (click)="getFileDetails(fileItem)">
+
+    <!-- 左侧文件图标 -->
+    <div style="display: inline-block">
+      <!-- <i class="icon-fork"></i> -->
+      <img src={{fileIconPath}} alt="" style="width: 1rem; height: 1rem;">
+    </div>
+
+    <!-- 文件名 -->
+    <div class="d-inline-block">
+      {{fileItem.fileName}}
+    </div>
+
+    <!-- 文件路径 -->
+    <div class="ml-2 d-inline-block" style="color: gray;">
+      {{fileItem.filePath}}
+    </div>
+
+    <div class="d-inline-block float-right">
+      <i *ngIf="fileItem.fileStaged === true" class="icon-minus" (click)="removeFile(fileItem)"></i>
+      <i *ngIf="fileItem.fileStaged === false" class="icon-plus-1" (click)="addFile(fileItem)"></i>
+    </div>
+
+  </div>
+
+  <!-- 右侧标识符，指示该文件状态 -->
+    <div class="d-inline-block font-weight-bold float-right">
+      {{fileItem.fileStatus}}
+    </div>
+
+  <!-- </div> -->
+</div>

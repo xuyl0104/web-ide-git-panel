@@ -13,6 +13,6 @@ export class GitInputComponent implements OnInit {
   }
 
   addComment() {
-    console.log("adding comment...");
+    console.log('adding comment...');
   }
 }

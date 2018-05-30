@@ -2,36 +2,36 @@
   <!-- 暂存的更改 -->
   <div *ngIf="stagedFiles.length > 0" class="control-bar cursor-pointer">
     <div class="control-bar-left">
-      <label>暂存的更改</label>
+      <label class="control-bar-left-label">暂存的更改</label>
     </div>
     <div class="control-bar-right">
-      <i class="demo-icon icon-ok"></i>
-      <label>{{stagedFiles.length}}</label>
+      <i class="demo-icon icon-minus" (click)="removeAllStagedFiles()" tooltip="取消所有暂存" placement="bottom" delay="1000"></i>
+      <span class="control-bar-right-span">{{stagedFiles.length}}</span>
     </div>
   </div>
 
   <div style="margin-top: 10px;">
-    <div *ngFor="let fileitem of stagedFiles" style="margin-top: 4px;">
-      <app-git-file-item [fileItem]="fileitem" (onRemoveFile)="onRemoveFile($event)"></app-git-file-item>      
+    <div *ngFor="let fileitem of stagedFiles" >
+      <app-git-file-item [fileItem]="fileitem" (onRemoveFile)="onRemoveFile($event)"></app-git-file-item>
     </div>
   </div>
 
   <!-- 未暂存更改 -->
   <div *ngIf="otherFiles.length > 0" class="control-bar cursor-pointer">
     <div class="control-bar-left">
-      <label>更改</label>
+      <label class="control-bar-left-label">更改</label>
     </div>
     <div class="control-bar-right">
-      <i class="demo-icon icon-undo"></i>
-      <i class="demo-icon icon-ok"></i>
-      <label>{{otherFiles.length}}</label>
+      <i class="demo-icon icon-undo" (click)="rescindAllEdit()" tooltip="放弃所有更改" placement="bottom" delay="1000"></i>
+      <i class="demo-icon icon-plus-1" (click)="stageAllFiles()" tooltip="暂存所有更改" placement="bottom" delay="1000"></i>
+      <span class="control-bar-right-span">{{otherFiles.length}}</span>
     </div>
   </div>
 
   <div style="margin-top: 10px;">
-    <div *ngFor="let fileitem of otherFiles" style="margin-top: 4px;">
-      <app-git-file-item [fileItem]="fileitem" (onAddFile)="onAddFile($event)"></app-git-file-item>      
+    <div *ngFor="let fileitem of otherFiles" >
+      <app-git-file-item [fileItem]="fileitem" (onAddFile)="onAddFile($event)"></app-git-file-item>
     </div>
   </div>
-  
+
 </div>

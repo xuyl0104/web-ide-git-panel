@@ -1,21 +1,27 @@
-.git-filelist {
-    /* height: 100vh; */
-}
-
 .git-filelist .control-bar{
-    height: 1rem;
-    margin-top: 15px;
+  height: 1rem;
+  margin-top: 0.8rem;
 }
 
 .git-filelist .control-bar .control-bar-left{
-    float: left;
-    font-weight: bold;
+  float: left;
+  font-weight: bold;
+}
+.git-filelist .control-bar .control-bar-left .control-bar-left-label{
+  margin-bottom: 0;
 }
 
 .git-filelist .control-bar .control-bar-right{
-    float: right;
+  float: right;
+}
+
+.git-filelist .control-bar .control-bar-right .control-bar-right-span{
+  margin-bottom: 0;
+  padding: 0 5px;
+  background-color: #dcdcdc;
+  border-radius: 9px;
 }
 
 .git-filelist .control-bar .control-bar-right > *{
-    margin-left: 10px;
+  margin-left: 10px;
 }
